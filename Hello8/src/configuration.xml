@@ -28,15 +28,15 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="Diary_Reply.xml" />
-		<mapper resource="Diary.xml" />
-		<mapper resource="Faq.xml" />
-		<mapper resource="Gathering_Reply.xml" />
-		<mapper resource="Gathering.xml" />
-		<mapper resource="Inter_lang.xml" />
-		<mapper resource="Language.xml" />
-		<mapper resource="Member.xml" />
-		<mapper resource="Notice.xml" />
-		<mapper resource="Rank.xml" />
+		<mapper resource="xml/Diary_Reply.xml" />
+		<mapper resource="xml/Diary.xml" />
+		<mapper resource="xml/Faq.xml" />
+		<mapper resource="xml/Gathering_Reply.xml" />
+		<mapper resource="xml/Gathering.xml" />
+		<mapper resource="xml/Inter_lang.xml" />
+		<mapper resource="xml/Language.xml" />
+		<mapper resource="xml/Member.xml" />
+		<mapper resource="xml/Notice.xml" />
+		<mapper resource="xml/Rank.xml" />
 	</mappers>
 </configuration>
