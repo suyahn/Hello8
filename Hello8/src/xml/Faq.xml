@@ -7,4 +7,4 @@
 		    <result property="fquestion" 	column="fquestion"/>
 		    <result property="fanswer" column="fanswer"/>
 	  </resultMap>
-</mapper>
+</mapper> 
