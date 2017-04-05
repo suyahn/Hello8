@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="dbconnect.properties" />
+	<typeAliases>
+		<typeAlias alias="dept" type="model.Diary_Reply" />
+		<typeAlias alias="dept" type="model.Diary" />
+		<typeAlias alias="dept" type="model.Faq" />
+		<typeAlias alias="dept" type="model.Gathering_Reply" />
+		<typeAlias alias="dept" type="model.Gathering" />
+		<typeAlias alias="dept" type="model.Inter_lang" />
+		<typeAlias alias="dept" type="model.Language" />
+		<typeAlias alias="dept" type="model.Member" />
+		<typeAlias alias="dept" type="model.Notice" />
+		<typeAlias alias="dept" type="model.Rank" />
+		
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="Diary_Reply.xml" />
+		<mapper resource="Diary.xml" />
+		<mapper resource="Faq.xml" />
+		<mapper resource="Gathering_Reply.xml" />
+		<mapper resource="Gathering.xml" />
+		<mapper resource="Inter_lang.xml" />
+		<mapper resource="Language.xml" />
+		<mapper resource="Member.xml" />
+		<mapper resource="Notice.xml" />
+		<mapper resource="Rank.xml" />
+	</mappers>
+</configuration>
