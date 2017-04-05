@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+header {
+	/* background-color: #ffdede; */
+	height: 50px;
+}
+
+article {
+	/* background-color: lightgray; */
+	width: 70%;
+	height: 582px;
+	float: left;
+	/* color: white; */
+}
+
+footer {
+	background-color: #17B8F0;
+	height: 30px;
+	clear: left;
+	color: white;
+}
