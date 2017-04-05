@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gatheringns">
+	<resultMap id="gatheringResult" type="gathering">
+		<result property="gno" column="gno" />
+		<result property="gsubject" column="gsubject" />
+		<result property="id" column="id" />
+		<result property="gcontent" column="gcontent" />
+		<result property="gdate" column="gdate" />
+		<result property="greadcount" column="greadcount" />
+		<result property="gdel" column="gdel" />
+		<result property="lang_no" column="lang_no" />
+	</resultMap>
+
+	
+</mapper>
