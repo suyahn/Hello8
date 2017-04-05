@@ -10,4 +10,4 @@
 		    <result property="nreadcount" column="nreadcount"/>
 		    <result property="ndel" column="ndel"/>
 	  </resultMap>
-</mapper>
+</mapper> 
