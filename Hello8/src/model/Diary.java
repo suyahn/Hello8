@@ -40,11 +40,11 @@ public class Diary {
 		this.dcontent = dcontent;
 	}
 
-	public Date getDate() {
+	public Date getDdate() {
 		return ddate;
 	}
 
-	public void setDate(Date ddate) {
+	public void setDdate(Date ddate) {
 		this.ddate = ddate;
 	}
 
