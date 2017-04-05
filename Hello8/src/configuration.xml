@@ -4,16 +4,16 @@
 <configuration>
 	<properties resource="dbconnect.properties" />
 	<typeAliases>
-		<typeAlias alias="dept" type="model.Diary_Reply" />
-		<typeAlias alias="dept" type="model.Diary" />
-		<typeAlias alias="dept" type="model.Faq" />
-		<typeAlias alias="dept" type="model.Gathering_Reply" />
-		<typeAlias alias="dept" type="model.Gathering" />
-		<typeAlias alias="dept" type="model.Inter_lang" />
-		<typeAlias alias="dept" type="model.Language" />
-		<typeAlias alias="dept" type="model.Member" />
-		<typeAlias alias="dept" type="model.Notice" />
-		<typeAlias alias="dept" type="model.Rank" />
+		<typeAlias alias="diary_reply" type="model.Diary_Reply" />
+		<typeAlias alias="diary" type="model.Diary" />
+		<typeAlias alias="faq" type="model.Faq" />
+		<typeAlias alias="gathering_reply" type="model.Gathering_Reply" />
+		<typeAlias alias="gathering" type="model.Gathering" />
+		<typeAlias alias="inter_lang" type="model.Inter_lang" />
+		<typeAlias alias="language" type="model.Language" />
+		<typeAlias alias="member" type="model.Member" />
+		<typeAlias alias="notice" type="model.Notice" />
+		<typeAlias alias="rank" type="model.Rank" />
 		
 	</typeAliases>
 	<environments default="development">
