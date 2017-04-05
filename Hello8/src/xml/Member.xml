@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberns">
+	<resultMap id="memberResult" type="member">
+		<result property="id" column="id" />
+		<result property="password" column="password" />
+		<result property="nickname" column="nickname" />
+		<result property="email" column="email" />
+		<result property="lang_no" column="lang_no" />
+		<result property="del" column="del" />
+		<result property="score" column="score" />
+		<result property="reg_date" column="reg_date" />
+	</resultMap>
+	
+	<select id="confirm" parameterType="string" resultType="string">
+		select id from member where id=#{id}
+	</select>
+	
+	<select id="loginChk" parameterType="string" resultType="string">
+		select password from member where id=#{id} and del != 'y'
+	</select>
+	
+	<select id="select" parameterType="string" resultType="member">
+		select * from member where id=#{id} and del != 'y'
+	</select>
+	
+	<select id="list" parameterType="hashMap" resultMap="memberResult">
+		select * from (select a.*, rownum rn from (select * from member order by reg_date desc) a) where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) from member
+	</select>
+	
+	<insert id="insert" parameterType="member">
+		insert into member values (#{id},#{password},#{nickname},#{email},#{lang_no},'n',0,sysdate)
+	</insert>
+	
+	<update id="delete" parameterType="string">
+		update member set del='y' where id=#{id}
+	</update>
+</mapper>
