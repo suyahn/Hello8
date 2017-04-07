@@ -25,24 +25,24 @@
 			<c:forEach var="gathering" items="${list }">
 
 				<tr>
-					<td align="center">${num}</td>
-					<!-- 여기 컬럼 확인 후 수정 -->
-					<td>[${gathering.lang_name }]</td>
-
 					<c:if test="${gathering.gdel != 'y' }">
+						<td align="center">${num}</td>
+						<!-- 여기 컬럼 확인 후 수정 -->
+						<td>[${gathering.lang_name }]</td>
+
 						<td><a
 							href="content.do?gno=${gathering.gno }&pageNum=${pageNum}">
 								${gathering.gsubject } </a></td>
 						<td>${gathering.nickname }</td>
 						<td>${gathering.gdate }</td>
 						<td align="center">${gathering.greadcount }</td>
-					</c:if>
 				</tr>
 
 				<c:set value="${num-1 }" var="num" />
-			</c:forEach>
 		</c:if>
-
+		</c:forEach>
+		</c:if>
+		
 		<c:if test="${empty list}">
 
 			<tr>

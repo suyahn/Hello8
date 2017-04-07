@@ -26,7 +26,7 @@
 		l.lang_name
 		from gathering g1, member m, language l where g1.id = m.id
 		and
-		m.lang_no = l.lang_no
+		g1.lang_no = l.lang_no
 		order by gdate desc) g2) where rn between
 		#{startRow} and #{endRow}
 	</select>
@@ -52,8 +52,7 @@
 		m.nickname, l.lang_name from (select * from gathering where
 		gno =
 		#{gno}) g, member m, language l where g.id = m.id and
-		m.lang_no =
-		l.lang_no
+		g1.lang_no = l.lang_no
 	</select>
 
 	<update id="greadCountUpdate" parameterType="int">
