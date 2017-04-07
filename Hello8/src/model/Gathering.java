@@ -11,6 +11,8 @@ public class Gathering {
 	private int greadcount;
 	private String gdel;
 	private int lang_no;
+	private String nickname;
+	private String lang_name;
 
 	public int getGno() {
 		return gno;
@@ -74,5 +76,21 @@ public class Gathering {
 
 	public void setLang_no(int lang_no) {
 		this.lang_no = lang_no;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getLang_name() {
+		return lang_name;
+	}
+
+	public void setLang_name(String lang_name) {
+		this.lang_name = lang_name;
 	}
 }

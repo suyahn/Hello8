@@ -11,7 +11,54 @@
 		<result property="greadcount" column="greadcount" />
 		<result property="gdel" column="gdel" />
 		<result property="lang_no" column="lang_no" />
+		<result property="nickname" column="nickname" />
+		<result property="lang_name" column="lang_name" />
 	</resultMap>
 
-	
+	<select id="getTotal" resultType="int">
+		select count(*) from gathering
+		where gdel != 'y'
+	</select>
+
+	<select id="list" parameterType="hashMap" resultMap="gatheringResult">
+		select *
+		from (select rownum rn, g2.* from (select g1.*, m.nickname,
+		l.lang_name
+		from gathering g1, member m, language l where g1.id = m.id
+		and
+		m.lang_no = l.lang_no
+		order by gdate desc) g2) where rn between
+		#{startRow} and #{endRow}
+	</select>
+
+	<insert id="insert" parameterType="gathering">
+		insert into gathering values
+		(#{gno}, #{gsubject}, #{id}, #{gcontent},
+		sysdate, 0, 'n', #{lang_no})
+	</insert>
+
+	<select id="insertNo" resultType="int">
+		select max(nvl(gno, 0)) + 1
+		from gathering
+	</select>
+
+	<select id="selectContentforUpdate" parameterType="string"
+		resultType="gathering">
+		select * from gathering where id = #{id}
+	</select>
+
+	<select id="select" parameterType="int" resultMap="gatheringResult">
+		select g.*,
+		m.nickname, l.lang_name from (select * from gathering where
+		gno =
+		#{gno}) g, member m, language l where g.id = m.id and
+		m.lang_no =
+		l.lang_no
+	</select>
+
+	<update id="greadCountUpdate" parameterType="int">
+		update gathering set
+		greadcount = greadcount + 1
+		where gno = #{gno}
+	</update>
 </mapper>
