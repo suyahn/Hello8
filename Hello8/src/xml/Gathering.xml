@@ -52,7 +52,7 @@
 		m.nickname, l.lang_name from (select * from gathering where
 		gno =
 		#{gno}) g, member m, language l where g.id = m.id and
-		g1.lang_no = l.lang_no
+		g.lang_no = l.lang_no
 	</select>
 
 	<update id="greadCountUpdate" parameterType="int">
