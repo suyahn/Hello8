@@ -4,7 +4,7 @@
 <configuration>
 	<properties resource="dbconnect.properties" />
 	<typeAliases>
-		<typeAlias alias="diary_reply" type="model.Diary_Reply" />
+		<!-- <typeAlias alias="diary_reply" type="model.Diary_Reply" /> -->
 		<typeAlias alias="diary" type="model.Diary" />
 		<typeAlias alias="faq" type="model.Faq" />
 		<typeAlias alias="gathering_reply" type="model.Gathering_Reply" />
@@ -14,7 +14,8 @@
 		<typeAlias alias="member" type="model.Member" />
 		<typeAlias alias="notice" type="model.Notice" />
 		<typeAlias alias="rank" type="model.Rank" />
-		
+		<typeAlias alias="range" type="model.Range" />
+		<typeAlias alias="statistics" type="model.Statistics" />
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -28,7 +29,7 @@
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="xml/Diary_Reply.xml" />
+		<!-- <mapper resource="xml/Diary_Reply.xml" /> -->
 		<mapper resource="xml/Diary.xml" />
 		<mapper resource="xml/Faq.xml" />
 		<mapper resource="xml/Gathering_Reply.xml" />
@@ -38,5 +39,7 @@
 		<mapper resource="xml/Member.xml" />
 		<mapper resource="xml/Notice.xml" />
 		<mapper resource="xml/Rank.xml" />
+		<mapper resource="xml/Range.xml" />
+		<mapper resource="xml/Statistics.xml" />
 	</mappers>
 </configuration>

@@ -13,6 +13,7 @@ public class Gathering {
 	private int lang_no;
 	private String nickname;
 	private String lang_name;
+	private Date ggdate;
 
 	public int getGno() {
 		return gno;
@@ -92,5 +93,13 @@ public class Gathering {
 
 	public void setLang_name(String lang_name) {
 		this.lang_name = lang_name;
+	}
+
+	public Date getGgdate() {
+		return ggdate;
+	}
+
+	public void setGgdate(Date ggdate) {
+		this.ggdate = ggdate;
 	}
 }

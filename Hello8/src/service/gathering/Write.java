@@ -1,8 +1,9 @@
 package service.gathering;
 
+import java.sql.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.GatheringDao;
 import model.Gathering;
@@ -17,14 +18,23 @@ public class Write implements CommandProcess {
 			System.out.println(e.getMessage());
 		}
 
-		// ���ǿ��� ���̵� �޾ƿ���
-		HttpSession session = request.getSession();
-		String id = (String) session.getAttribute("id");
+		/*
+		 * HttpSession session = request.getSession(); String id = (String)
+		 * session.getAttribute("id");
+		 */
+
+		String id = "hello";
 
 		String gsubject = request.getParameter("gsubject");
 		String gcontent = request.getParameter("gcontent");
-		String lang_name = request.getParameter("lang_name");
-		int lang_no = Integer.parseInt(request.getParameter("lang_no"));
+		/*
+		 * String lang_name = request.getParameter("lang_name"); int lang_no =
+		 * Integer.parseInt(request.getParameter("lang_no"));
+		 */
+
+		// 모임날짜
+		Date ggdate = Date.valueOf(request.getParameter("ggdate"));
+		int lang_no = ((int) Math.random() * 8) + 1;
 
 		GatheringDao gd = GatheringDao.getInstance();
 		int gno = gd.insertNo();
@@ -35,13 +45,14 @@ public class Write implements CommandProcess {
 		gathering.setId(id);
 		gathering.setGcontent(gcontent);
 		gathering.setLang_no(lang_no);
-		gathering.setLang_name(lang_name);
+		gathering.setGgdate(ggdate);
+		/* gathering.setLang_name(lang_name); */
 
 		int result = gd.insert(gathering);
 
 		request.setAttribute("result", result);
 
-		return "write";
+		return "../gathering/write";
 	}
 
 }

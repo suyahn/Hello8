@@ -1,0 +1,6 @@
+caption { font-size:20px; line-height:160%; font-weight:bold; }
+body { background-color: #ffffff; }
+table { background-color: #ffffff; width: 60%; 
+	border: 1px solid #400040;	}
+th { background-color: #ffffff; color: black; }
+th, td { padding: 15px; border: 1px solid #400040; }

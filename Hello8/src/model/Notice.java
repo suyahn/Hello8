@@ -3,19 +3,19 @@ package model;
 import java.sql.Date;
 
 public class Notice {
-	private int mno;
+	private int nno;
 	private String nsubject;
 	private String ncontent;
 	private Date ndate;
 	private int nreadcount;
 	private String ndel;
 
-	public int getMno() {
-		return mno;
+	public int getNno() {
+		return nno;
 	}
 
-	public void setMno(int mno) {
-		this.mno = mno;
+	public void setNno(int nno) {
+		this.nno = nno;
 	}
 
 	public String getNsubject() {

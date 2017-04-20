@@ -11,6 +11,14 @@ public class Member {
 	private String del;
 	private int score;
 	private Date reg_date;
+	private String lang_name;
+	
+	public String getLang_name() {
+		return lang_name;
+	}
+	public void setLang_name(String lang_name) {
+		this.lang_name = lang_name;
+	}
 	
 	public String getId() {
 		return id;

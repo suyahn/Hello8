@@ -11,6 +11,8 @@ public class Gathering_Reply {
 	private int ref;
 	private int re_step;
 	private int re_level;
+	private String nickname;
+	private String grdel;
 
 	public int getGrno() {
 		return grno;
@@ -74,5 +76,21 @@ public class Gathering_Reply {
 
 	public void setRe_level(int re_level) {
 		this.re_level = re_level;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getGrdel() {
+		return grdel;
+	}
+
+	public void setGrdel(String grdel) {
+		this.grdel = grdel;
 	}
 }

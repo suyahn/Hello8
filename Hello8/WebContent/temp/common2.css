@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+header {
+	width: 100%;
+	height: 50px;
+}
+
+.mainArticle {
+	width: 65%;
+	height: 582px;
+	float: left;
+}
+
+.memberArticle {
+	width: 25%;
+	float: right;
+	height: 582px;
+	border-left: 0.5px solid gray;
+}
+
+footer {
+	background-color: #17B8F0;
+	height: 30px;
+	clear: left;
+	color: white;
+}

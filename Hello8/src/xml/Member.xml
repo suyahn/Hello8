@@ -10,25 +10,57 @@
 		<result property="nickname" column="nickname" />
 		<result property="email" column="email" />
 		<result property="lang_no" column="lang_no" />
+		<result property="lang_name" column="lang_name" />
 		<result property="del" column="del" />
 		<result property="score" column="score" />
 		<result property="reg_date" column="reg_date" />
 	</resultMap>
 	
-	<select id="confirm" parameterType="string" resultType="string">
+	<select id="loginChk" parameterType="string" resultType="string">
+		select password from member where id=#{id} and del != 'y'
+	</select>
+	
+	<select id="checkId" parameterType="string" resultType="string">
 		select id from member where id=#{id}
 	</select>
 	
-	<select id="loginChk" parameterType="string" resultType="string">
-		select password from member where id=#{id} and del != 'y'
+	<select id="checkNickname" parameterType="string" resultType="string">
+		select nickname from member where nickname=#{nickname}
+	</select>
+	
+	<select id="checkEmail" parameterType="string" resultType="string">
+		select email from member where email=#{email}
 	</select>
 	
 	<select id="select" parameterType="string" resultType="member">
 		select * from member where id=#{id} and del != 'y'
 	</select>
 	
+	<select id="getScore" parameterType="string" resultType="int">
+		select score from member where id=#{id}
+	</select>
+	
+	<select id="getGrade" parameterType="string" resultType="int">
+		select r.grade from member m, rank r where m.score between r.loscore and r.hiscore and id=#{id}
+	</select>
+	
+	<select id="getNickname" parameterType="string" resultType="string">
+		select nickname from member where id=#{id}
+	</select>
+	
+	<select id="findId" parameterType="string" resultType="string">
+		select id from member where email=#{email}
+	</select>
+	
+	<select id="findPassword" parameterType="string" resultType="string">
+		select password from member where id=#{id}
+	</select> 
+	
 	<select id="list" parameterType="hashMap" resultMap="memberResult">
-		select * from (select a.*, rownum rn from (select * from member order by reg_date desc) a) where rn between #{startRow} and #{endRow}
+		select * from (select a.*, rownum rn from (select m.*, l.lang_name from member m, 
+		language l where l.lang_no=m.lang_no order by reg_date desc) a) 
+		where rn between #{startRow} and #{endRow}
+		<!--  rn=rownum을 뜻함 -->
 	</select>
 	
 	<select id="getTotal" resultType="int">
@@ -38,6 +70,10 @@
 	<insert id="insert" parameterType="member">
 		insert into member values (#{id},#{password},#{nickname},#{email},#{lang_no},'n',0,sysdate)
 	</insert>
+
+	<update id="update" parameterType="member">
+		update member set password=#{password}, nickname=#{nickname}, email=#{email}, lang_no=#{lang_no} where id=#{id}
+	</update>
 	
 	<update id="delete" parameterType="string">
 		update member set del='y' where id=#{id}

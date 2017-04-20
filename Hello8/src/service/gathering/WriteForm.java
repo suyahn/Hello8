@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.GatheringDao;
-import model.GetLang;
+import model.Language;
 import service.CommandProcess;
 
 public class WriteForm implements CommandProcess {
@@ -17,11 +17,11 @@ public class WriteForm implements CommandProcess {
 		String id = (String) session.getAttribute("id");
 
 		GatheringDao gd = GatheringDao.getInstance();
-		List<GetLang> langlist = gd.langlist(id);
+		List<Language> langlist = gd.langlist("hello");
 
 		request.setAttribute("langlist", langlist);
 
-		return "writeForm";
+		return "../gathering/writeForm";
 	}
 
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="statisticsns">
+	<resultMap id="statisticsResult" type="statistics">
+		<result property="lang_name" column="lang_name" />
+		<result property="count" column="count(*)" />
+	</resultMap>
+	<select id="statistics" resultMap="statisticsResult">
+	select lang_name,count(*) from diary d, language l where d.lang_no=l.lang_no group by 
+	lang_name
+	</select> 
+</mapper>

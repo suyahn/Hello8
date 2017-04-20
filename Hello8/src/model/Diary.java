@@ -1,4 +1,5 @@
 package model;
+
 import java.sql.Date;
 
 public class Diary {
@@ -7,6 +8,30 @@ public class Diary {
 	private String id;
 	private String dcontent;
 	private Date ddate;
+	private int dreadcount;
+	private int rno;
+	private String ddel;
+	private int lang_no;
+	private String nickname;
+	private String lang_name;
+
+	public String getLang_name() {
+		return lang_name;
+	}
+
+	public void setLang_name(String lang_name) {
+		this.lang_name = lang_name;
+	}
+
+	
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
 	public int getDno() {
 		return dno;
@@ -56,12 +81,12 @@ public class Diary {
 		this.dreadcount = dreadcount;
 	}
 
-	public int getDrange() {
-		return drange;
+	public int getRno() {
+		return rno;
 	}
 
-	public void setDrange(int drange) {
-		this.drange = drange;
+	public void setRno(int rno) {
+		this.rno = rno;
 	}
 
 	public String getDdel() {
@@ -80,8 +105,4 @@ public class Diary {
 		this.lang_no = lang_no;
 	}
 
-	private int dreadcount;
-	private int drange;
-	private String ddel;
-	private int lang_no;
 }

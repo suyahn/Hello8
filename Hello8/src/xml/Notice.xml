@@ -2,12 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="noticens">
-	  <resultMap id="noticeResult" 	type="notice">
-		    <result property="nno" column="nno"/>
-		    <result property="nsubject" column="nsubject"/>
-		    <result property="ncontent" column="ncontent"/>
-		    <result property="ndate" column="ndate"/>
-		    <result property="nreadcount" column="nreadcount"/>
-		    <result property="ndel" column="ndel"/>
-	  </resultMap>
+	<resultMap id="noticeResult" type="notice">
+		<result property="nno" column="nno" />
+		<result property="nsubject" column="nsubject" />
+		<result property="ncontent" column="ncontent" />
+		<result property="ndate" column="ndate" />
+		<result property="nreadcount" column="nreadcount" />
+		<result property="ndel" column="ndel" />
+	</resultMap>
+
+	<update id="update" parameterType="notice">
+		update notice set nsubject=#{nsubject}, ncontent=#{ncontent} where nno=#{nno}
+	</update>
+	<update id="delete" parameterType="int">
+		update notice set ndel='y' where nno=#{nno}
+	</update>
+	<select id="getMaxNno" resultType="int">
+		select nvl(max(nno),0) + 1 from notice
+	</select>
+	<insert id="insert" parameterType="notice">
+		insert into notice values (#{nno},#{nsubject},#{ncontent},sysdate,0,'n')
+	</insert>
+	<select id="list" parameterType="hashMap" resultMap="noticeResult">
+		select * from (select a.*, rownum rn from (select * from notice where ndel='n' order by ndate desc) a)
+		where rn between #{startRow} and #{endRow}
+	</select>
+	<!-- result map에는 resultmap의 id를 넣어야 필요한 번호 제목 내용 날짜 등이 입력 됨 -->
+	<select id="getTotal" resultType="int">
+		select count(*) from notice where ndel='n'
+	</select>
+	<update id="readcountUpdate" parameterType="int">
+		update notice set nreadcount = nreadcount + 1 where nno=#{nno}
+	</update>
+	<!-- resulttype는 update나 delete insert 이런 애들은 이미 int라고 지정이 되어있어서 resulttype을 
+		쓸 필요 없음 -->
+	<!-- parametertype는 ex)(int num)이면 int라고 써줘야 함 -->
+	<!-- #이 넘어 온게 parametertype이라는 뜻 -->
+	<!-- noticedao가 xml을 불러서 db에서 정보를 가져옴 -->
+	<select id="select" parameterType="int" resultType="notice">
+		select * from notice where nno=#{num}
+	</select>
 </mapper> 

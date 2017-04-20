@@ -1,10 +1,15 @@
 package service.gathering;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.GatheringDao;
+import dao.Gathering_ReplyDao;
 import model.Gathering;
+import model.Gathering_Reply;
 import service.CommandProcess;
 
 public class Content implements CommandProcess {
@@ -12,18 +17,33 @@ public class Content implements CommandProcess {
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) {
 		int gno = Integer.parseInt(request.getParameter("gno"));
 		String pageNum = request.getParameter("pageNum");
-		
+
 		GatheringDao gd = GatheringDao.getInstance();
 		gd.greadCountUpdate(gno);
 		Gathering gathering = gd.select(gno);
 
-		System.out.println("lang : " + gathering.getLang_name());
-		
-		request.setAttribute("gno", gno);
+		// 현재 접속한 사람이 이 글을 쓴 당사자인지 아니면 마스터인지 알기 위해서
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		String chkId = gd.checkId(gno);
+		int result = 0;
+
+		if (id == "master" || id == chkId)
+			result = 1;
+		else
+			result = 0;
+
+		Gathering_ReplyDao grd = Gathering_ReplyDao.getInstance();
+		List<Gathering_Reply> list = grd.list(gno);
+
+		if (list.size() > 0)
+			request.setAttribute("list", list);
+
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("gathering", gathering);
+		request.setAttribute("result", result);
 
-		return "content";
+		return "../gathering/content";
 	}
 
 }

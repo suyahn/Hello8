@@ -4,6 +4,14 @@ public class Faq {
 	private int fno;
 	private String fquestion;
 	private String fanswer;
+	private String fdel;
+	
+	public String getFdel() {
+		return fdel;
+	}
+	public void setFdel(String fdel) {
+		this.fdel = fdel;
+	}
 	public int getFno() {
 		return fno;
 	}

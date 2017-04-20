@@ -13,11 +13,12 @@
 		<result property="lang_no" column="lang_no" />
 		<result property="nickname" column="nickname" />
 		<result property="lang_name" column="lang_name" />
+		<result property="ggdate" column="ggdate" />
 	</resultMap>
 
 	<select id="getTotal" resultType="int">
 		select count(*) from gathering
-		where gdel != 'y'
+		where gdel != 'y' and ggdate > sysdate
 	</select>
 
 	<select id="list" parameterType="hashMap" resultMap="gatheringResult">
@@ -26,15 +27,17 @@
 		l.lang_name
 		from gathering g1, member m, language l where g1.id = m.id
 		and
-		g1.lang_no = l.lang_no
-		order by gdate desc) g2) where rn between
+		g1.lang_no = l.lang_no and g1.gdel != 'y' and g1.ggdate > sysdate
+		order by ggdate) g2)
+		where rn between
 		#{startRow} and #{endRow}
 	</select>
 
 	<insert id="insert" parameterType="gathering">
 		insert into gathering values
 		(#{gno}, #{gsubject}, #{id}, #{gcontent},
-		sysdate, 0, 'n', #{lang_no})
+		sysdate, 0, 'n', #{lang_no},
+		#{ggdate})
 	</insert>
 
 	<select id="insertNo" resultType="int">
@@ -52,7 +55,8 @@
 		m.nickname, l.lang_name from (select * from gathering where
 		gno =
 		#{gno}) g, member m, language l where g.id = m.id and
-		g.lang_no = l.lang_no
+		g.lang_no =
+		l.lang_no
 	</select>
 
 	<update id="greadCountUpdate" parameterType="int">
@@ -60,4 +64,57 @@
 		greadcount = greadcount + 1
 		where gno = #{gno}
 	</update>
+
+	<select id="checkId" parameterType="int" resultType="string">
+		select id
+		from gathering where gno = #{gno}
+	</select>
+
+	<update id="contentUpdate" parameterType="gathering">
+		update gathering set
+		gsubject = #{gsubject}, gcontent = #{gcontent}
+		where gno = #{gno}
+	</update>
+
+	<update id="contentDelete" parameterType="int">
+		update gathering set
+		gdel = 'y' where gno = #{gno}
+	</update>
+
+	<update id="contentDeleteReply" parameterType="int">
+		update
+		gathering_reply set
+		grdel = 'y' where gno = #{gno}
+	</update>
+
+	<select id="getTotal2" parameterType="int" resultType="int">
+		select
+		count(*) from
+		gathering where gdel != 'y' and lang_no = #{lang_no} and
+		ggdate > sysdate
+	</select>
+
+	<select id="list2" parameterType="hashMap" resultMap="gatheringResult">
+		select *
+		from (select rownum rn, g2.* from (select g1.*, m.nickname,
+		l.lang_name
+		from gathering g1, member m, language l where g1.id = m.id
+		and
+		g1.lang_no = l.lang_no and g1.gdel != 'y' and g1.lang_no =
+		#{lang_no} and g1.ggdate > sysdate order by ggdate) g2)
+		where rn
+		between
+		#{startRow} and #{endRow}
+	</select>
+
+	<select id="getLangName" parameterType="int" resultType="string">
+		select
+		lang_name from language where lang_no = #{lang_no}
+	</select>
+	
+	<select id="getTotalById" parameterType="string" resultType="int">
+		select count(*) from gathering where id=#{id} and gdel='n'
+	</select>
+	<!-- <update id="deletePGathering"> update gathering set gdel = 'y' where 
+		ggdate < sysdate </update> -->
 </mapper>

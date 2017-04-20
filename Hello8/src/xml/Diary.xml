@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="diaryns">
+	<resultMap id="diaryResult" type="diary">
+		<result property="dno" column="dno" />
+		<result property="dsubject" column="dsubject" />
+		<result property="id" column="id" />
+		<result property="dcontent" column="dcontent" />
+		<result property="ddate" column="ddate" />
+		<result property="dreadcount" column="dreadcount" />
+		<result property="rno" column="rno" />
+		<result property="ddel" column="ddel" />
+		<result property="lang_no" column="lang_no" />
+		<result property="nickname" column="nickname" />
+		<result property="lang_name" column="lang_name" />
+	</resultMap>
+
+	<select id="getTotal" resultType="int">
+		select count(*) from diary
+		where ddel != 'y'
+
+	</select>
+
+	<select id="list" parameterType="hashMap" resultMap="diaryResult">
+
+
+		<!-- <if test="rno == 1"> -->
+		select *
+		from (select rownum rn, d2.* from (select d1.*, m.nickname,
+		l.lang_name
+		from diary d1, member m, language l where d1.id = m.id
+		and
+		d1.lang_no = l.lang_no
+		order by ddate desc) d2) where rn between
+		#{startRow} and #{endRow}
+		<!-- </if> <if test="rno == 2"> select * from (select rownum rn, d2.* from 
+			(select d1.*, m.nickname, l.lang_name from diary d1, member m, language l 
+			where d1.id = m.id and d1.lang_no = l.lang_no order by ddate desc) d2) where 
+			rn between #{startRow} and #{endRow} </if> <if test="rno == 3"> select * 
+			from (select rownum rn, d2.* from (select d1.*, m.nickname, l.lang_name from 
+			diary d1, member m, language l where d1.id = m.id and d1.lang_no = l.lang_no 
+			order by ddate desc) d2) where rn between #{startRow} and #{endRow} </if> -->
+	</select>
+
+	<select id="list2" parameterType="hashMap" resultMap="diaryResult">
+
+		select *
+		from (select rownum rn, d2.* from (select d1.*, m.nickname,
+		l.lang_name
+		from diary d1, member m, language l where d1.id = m.id
+		and
+		d1.lang_no = l.lang_no and d1.lang_no =#{lang_no}
+		order by ddate desc) d2) where
+		rn between
+		#{startRow} and #{endRow}
+
+	</select>
+
+
+	<select id="select" parameterType="int" resultMap="diaryResult">
+		select d.*,
+		m.nickname, l.lang_name from (select * from diary where
+		dno =
+		#{dno}) d,
+		member m, language l where d.id = m.id and
+		d.lang_no = l.lang_no
+	</select>
+	<update id="update" parameterType="diary">
+		update diary set
+		dsubject=#{dsubject},dcontent=#{dcontent},rno=#{rno}
+		where dno=#{dno}
+	</update>
+	<update id="delete" parameterType="int">
+		update diary set ddel='y'
+		where dno=#{dno}
+	</update>
+
+	<insert id="insert" parameterType="diary">
+		insert into diary values
+		(#{dno},#{dsubject},#{id},#{dcontent},sysdate,0,#{rno},'n',#{lang_no})
+	</insert>
+
+	<select id="insertNo" resultType="int">
+		select max(nvl(dno, 0)) + 1
+		from diary
+	</select>
+
+	<update id="dreadCountUpdate" parameterType="int">
+		update diary set
+		dreadcount = dreadcount + 1
+		where dno = #{dno}
+	</update>
+	
+	<select id="getTotal2" parameterType="int" resultType="int">
+		select count(*) from diary
+		where ddel != 'y' and lang_no = #{lang_no}
+	</select>
+	
+	<select id="getTotalById" parameterType="string" resultType="int">
+		select count(*) from diary where id=#{id}
+	</select>
+
+</mapper>

@@ -9,6 +9,38 @@
 <link rel="stylesheet" type="text/css" href="">
 </head>
 <body>
+	<form>
+		<fieldset style="width: 500px">
+			<legend align="left">Language</legend>
+
+			<a href="list.do">All</a>
+
+			<c:forEach var="lang" items="${list_lang }">
+				<a href="lang_list.do?lang_no=${lang.lang_no }">${lang.lang_name }</a>
+			</c:forEach>
+			
+		</fieldset>
+
+		<%-- <fieldset>
+			<legend>Language</legend>
+
+			<label>All</label> <input type="checkbox" name="lang" value="0">
+
+			<c:forEach var="lang" items="${list_lang }">
+				<label>${lang.lang_name }</label>
+				<input type="checkbox" name="lang"
+					value="${lang.lang_no }">
+			</c:forEach>
+
+			<p>
+				<input type="button" value="search" onclick="list.do">
+			</p>
+		</fieldset> --%>
+
+	</form>
+
+	<h1 align="center">Gathering</h1>
+
 	<c:set value="${number }" var="num" />
 
 	<table align="center">
@@ -34,7 +66,7 @@
 							href="content.do?gno=${gathering.gno }&pageNum=${pageNum}">
 								${gathering.gsubject } </a></td>
 						<td>${gathering.nickname }</td>
-						<td>${gathering.gdate }</td>
+						<td>${gathering.ggdate }</td>
 						<td align="center">${gathering.greadcount }</td>
 				</tr>
 
@@ -42,7 +74,7 @@
 		</c:if>
 		</c:forEach>
 		</c:if>
-		
+
 		<c:if test="${empty list}">
 
 			<tr>
@@ -58,7 +90,15 @@
 
 				<div align="center">
 					<c:if test="${startParge > PAGEPERBLOCK }">
-						<a href="list.do?pageNum=${endPage - PAGEPERBLOCK}"> << prev </a>
+						<c:if test="${endPage == totalPage }">
+							<a href="list.do?pageNum=${(num * PAGEPERBLOCK) -10 }"> <<
+								prev </a>
+						</c:if>
+
+						<c:if test="${endPage != totalPage }">
+							<a href="list.do?pageNum=${endPage - PAGEPERBLOCK }"> << prev
+							</a>
+						</c:if>
 					</c:if>
 
 					<c:forEach var="i" begin="${startPage }" end="${endPage }">

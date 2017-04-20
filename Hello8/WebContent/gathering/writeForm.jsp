@@ -26,6 +26,11 @@
 						</c:forEach>
 				</select></td>
 			</tr> --%>
+			
+			<tr>
+				<th>Gathering Date</th>
+				<td><input type="date" name="ggdate" required="required" ></td>
+			</tr>
 
 			<tr>
 				<th>Content</th>

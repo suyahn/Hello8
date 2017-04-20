@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="diary_replyns">
+	<resultMap id="diary_replyResult" type="diary_reply">
+		<result property="drno" column="drno" />
+		<result property="dno" column="dno" />
+		<result property="id" column="id" />
+		<result property="drcontent" column="drcontent" />
+		<result property="drdate" column="drdate" />
+		<result property="ref" column="ref" />
+		<result property="re_step" column="re_step" />
+	</resultMap>
+	
+	<select id="list" resultMap="deptResult">
+		select * from dept
+	</select>
+	<select id="select" parameterType="int" resultType="dept">
+		select * from
+		dept where deptno=#{deptno}
+	</select>
+	<update id="update" parameterType="dept">
+		update dept set
+		dname=#{dname},loc=#{loc}
+		where deptno=#{deptno}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from dept where
+		deptno=#{deptno}
+	</delete>
+	<insert id="insert" parameterType="dept">
+		insert into dept values
+		(#{deptno},#{dname},#{loc})
+	</insert>
+</mapper>

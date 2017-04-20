@@ -2,9 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="faqns">
-	  <resultMap id="faqResult" 	type="faq">
-		    <result property="fno" 	column="fno"/>
-		    <result property="fquestion" 	column="fquestion"/>
-		    <result property="fanswer" column="fanswer"/>
-	  </resultMap>
+	<resultMap id="faqResult" type="faq">
+		<result property="fno" column="fno" />
+		<result property="fquestion" column="fquestion" />
+		<result property="fanswer" column="fanswer" />
+		<result property="fdel" column="fdel" />
+	</resultMap>
+	<select id="list" parameterType="hashMap" resultMap="faqResult">
+		select * from (select a.*, rownum rn from (select * from faq where fdel='n' ) a)
+		where rn between #{startRow} and #{endRow}
+	</select>
+	<select id="userlist" resultMap="faqResult"> <!-- resultmap에 faqresult를 쓰면 faqdao에 그 값을 넘겨줌 -->
+		select fno,fquestion,fanswer from faq where fdel='n'
+	</select>
+	<!-- result map에는 resultmap의 id를 넣어야 필요한 번호 제목 내용 날짜 등이 입력 됨 -->
+	<select id="getTotal" resultType="int">
+		select count(*) from faq where fdel='n'
+	</select>
+	<select id="select" parameterType="int" resultType="faq">
+		select * from faq where fno=#{num}
+	</select>
+	<select id="getMaxFno" resultType="int">
+		select nvl(max(fno),0) + 1 from faq
+	</select>
+	<insert id="insert" parameterType="faq">
+		insert into faq values (#{fno},#{fquestion},#{fanswer},'n')
+	</insert>
+	<update id="update" parameterType="faq">
+		update faq set fquestion=#{fquestion}, fanswer=#{fanswer} where fno=#{fno}
+	</update>
+	<update id="delete" parameterType="int">
+		update faq set fdel='y' where fno=#{fno}
+	</update>
 </mapper> 

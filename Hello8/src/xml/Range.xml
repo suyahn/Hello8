@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rangens">
+	<resultMap id="rangeResult" type="range">
+		<result property="rno" column="rno" />
+		<result property="rname" column="rname" />
+	</resultMap>
+	<select id="everyRange" resultMap="rangeResult">
+		select * from range
+	</select>
+</mapper>

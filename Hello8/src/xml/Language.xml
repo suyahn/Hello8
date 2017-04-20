@@ -8,4 +8,40 @@
 		<result property="lang_no" column="lang_no" />
 		<result property="lang_name" column="lang_name" />
 	</resultMap>
+	
+	<select id="list" resultMap="languageResult">
+		select * from language
+	</select>
+	
+	<select id="getNative_lang" parameterType="string" resultType="language">
+		select * from language l, member m where m.lang_no = l.lang_no and id=#{id}
+	</select>
+	
+	<select id="getInter_lang" parameterType="string" resultMap="languageResult">
+	select * from language  where lang_no in (select lang_no from inter_lang where id=#{id})
+	</select>
+	
+	<select id="everylang" resultMap="languageResult">
+		select * from language
+	</select>
+	
+	<!-- 모국어랑 흥미있는 언어 -->
+	<select id="langlist" parameterType="string">
+		select m.lang_no, lang_name from member m, language l where
+		m.lang_no = l.lang_no and m.id = #{id}
+		union select i.lang_no, lang_name from inter_lang i,
+		language l where i.id = #{id} and i.lang_no = l.lang_no;
+	</select>
+	
+	<select id="selectLang" parameterType="int" resultType="string">
+		select lang_name from language where lang_no=#{lang_no}  
+	</select>
+
+	<insert id="insert" parameterType="inter_lang">
+		insert into inter_lang values (#{id}, #{lang_no})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from inter_lang where id=#{id}
+	</delete>
 </mapper>
