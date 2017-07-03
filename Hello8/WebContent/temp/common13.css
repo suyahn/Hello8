@@ -11,7 +11,7 @@ body {
 	position:relative;
 }
 #content {
-	padding-bottom:30px; Height of the footer element
+	padding-bottom:100px; /*Height of the footer element*/
 }
 #footer {
 	height: 30px; 
