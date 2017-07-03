@@ -42,4 +42,8 @@
 	<select id="select" parameterType="int" resultType="notice">
 		select * from notice where nno=#{num}
 	</select>
+	
+	<select id="main" resultMap="noticeResult">
+      select * from notice where ndel='n' order by ndate desc
+   </select>
 </mapper> 

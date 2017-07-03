@@ -90,7 +90,8 @@ public class MemberDao {
 	}
 
 	public String findId(String email) {
-		return (String) session.selectOne("memberns.findId", email);
+		String id = (String) session.selectOne("memberns.findId", email);
+		return id;
 	}
 	
 	public String findPassword(String id, String email) {
@@ -159,9 +160,16 @@ public class MemberDao {
 		return session.selectList("memberns.list", hashMap);
 	}
 	
-	// public int delete(String id) {
-	// int result = session.update("memberns.delete", id);
-	// return result;
-	// }
-	//
+	public int delete(String id) {
+		return session.update("memberns.delete", id);
+	}
+
+	public int updateScore(String id, int score) {
+		if(score == 10) { //diary 썼을 때
+			return session.update("memberns.updateScore10", id);
+		} else { //댓글 썼을 때
+			return session.update("memberns.updateScore1", id);
+		}
+	}
+
 }

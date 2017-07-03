@@ -55,10 +55,6 @@ public class LanguageDao {
 	public int insert(Inter_lang inter_langObj) {
 		int result= session.insert("languagens.insert", inter_langObj);
 		List<Language> list = session.selectList("languagens.getInter_lang", "hello");
-		
-		for(Language lg : list) {
-			System.out.println("inset한 뒤에 바로! 랭귀지 네임 : " + lg.getLang_name());
-		}
 		return result;
 	}
 	

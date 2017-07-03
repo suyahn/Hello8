@@ -13,7 +13,7 @@ public class Logout implements CommandProcess {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "../member/logout";
+		return "../index";
 	}
 
 }

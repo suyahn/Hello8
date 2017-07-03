@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="content.css">
 <script type="text/javascript">
 	function Chk() {
@@ -26,7 +25,7 @@
 			<tr>
 				<th>Subject</th>
 				<td><input type="text" name="gsubject"
-					value="${gathering.gsubject }" required="required"></td>
+					value="${gathering.gsubject }" required="required" maxlength="33"></td>
 			</tr>
 
 			<tr>
@@ -48,7 +47,7 @@
 			<tr>
 				<th>Content</th>
 				<td align="left"><textarea rows="10" cols="70" name="gcontent"
-						required="required">${gathering.gcontent }</textarea></td>
+						required="required" maxlength="166">${gathering.gcontent }</textarea></td>
 			</tr>
 
 			<tr>

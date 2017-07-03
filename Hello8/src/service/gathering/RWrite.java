@@ -10,13 +10,6 @@ import service.CommandProcess;
 public class RWrite implements CommandProcess {
 
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			request.setCharacterEncoding("utf-8");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		
 		int gno = Integer.parseInt(request.getParameter("gno"));
 		String id = request.getParameter("sessionId");
 		String grcontent = request.getParameter("grcontent");
@@ -24,7 +17,7 @@ public class RWrite implements CommandProcess {
 		int grno = 0, temp_step = 0;
 		
 		Gathering_ReplyDao grd = Gathering_ReplyDao.getInstance();
-		int number = grd.insertNo(); // 새로 저장될 댓글의 grno
+		grno = grd.insertNo(); // 새로 저장될 댓글의 grno
 
 		/*if (request.getParameter("grno") != null) {
 			Gathering_Reply gathering_reply = new Gathering_Reply();

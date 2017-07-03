@@ -12,6 +12,7 @@ public class FindId implements CommandProcess {
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
+		System.out.println("FindId.java email : " + email);
 		MemberDao md = MemberDao.getInstance();
 		
 		String id = md.findId(email);
@@ -20,7 +21,7 @@ public class FindId implements CommandProcess {
 			return "../member/findForm";
 		} else {
 			request.setAttribute("result", 1);
-			request.setAttribute("id", id);
+			request.setAttribute("findId", id);
 			return "../member/findIdResult";
 		}
 	}

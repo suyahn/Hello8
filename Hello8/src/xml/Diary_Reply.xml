@@ -10,26 +10,49 @@
 		<result property="drdate" column="drdate" />
 		<result property="ref" column="ref" />
 		<result property="re_step" column="re_step" />
+		<result property="re_level" column="re_level" />
+		<result property="nickname" column="nickname" />
+		<result property="drdel" column="drdel" />
+
 	</resultMap>
-	
-	<select id="list" resultMap="deptResult">
-		select * from dept
+
+	<select id="getTotal">
+		select count(*) from
+		diary_reply where drdel != 'y'
+
 	</select>
-	<select id="select" parameterType="int" resultType="dept">
+
+	<select id="list" parameterType="int" resultMap="diary_replyResult">
+		select *
+		from
+		(select rownum rn, d2.*, m.nickname from (select d1.* from
+		diary_reply
+		d1 where d1.drdel != 'y' and d1.dno = #{dno}
+		order by
+		drdate desc) d2,
+		member m where m.id = d2.id)
+	</select>
+	<select id="select" parameterType="int" resultType="diary_reply">
 		select * from
-		dept where deptno=#{deptno}
+		diary_reply where drno=#{drno}
 	</select>
-	<update id="update" parameterType="dept">
-		update dept set
-		dname=#{dname},loc=#{loc}
-		where deptno=#{deptno}
+	<update id="update" parameterType="diary_reply">
+		update diary_reply set
+		drcontent=#{drcontent}
+		where drno=#{drno}
 	</update>
-	<delete id="delete" parameterType="int">
-		delete from dept where
-		deptno=#{deptno}
-	</delete>
-	<insert id="insert" parameterType="dept">
-		insert into dept values
-		(#{deptno},#{dname},#{loc})
+	<update id="delete" parameterType="int">
+		update diary_reply set drdel
+		='y' where drno = #{drno}
+	</update>
+	<insert id="insert" parameterType="diary_reply">
+		insert into diary_reply values
+		(#{drno},#{dno},#{id},#{drcontent},sysdate,0,0,0,'n')
 	</insert>
+
+	<select id="insertNo" resultType="int">
+		select max(nvl(drno, 0)) + 1
+		from diary_reply
+	</select>
+
 </mapper>

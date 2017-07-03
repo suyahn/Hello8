@@ -17,6 +17,7 @@ public class RContent implements CommandProcess {
 		int gno = Integer.parseInt(request.getParameter("gno"));
 		int grno = Integer.parseInt(request.getParameter("grno"));
 		String pageNum = request.getParameter("pageNum");
+		String nickname = request.getParameter("nickname");
 
 		GatheringDao gd = GatheringDao.getInstance();
 		gd.greadCountUpdate(gno);
@@ -35,7 +36,7 @@ public class RContent implements CommandProcess {
 
 		Gathering_ReplyDao grd = Gathering_ReplyDao.getInstance();
 		List<Gathering_Reply> list = grd.list(gno);
-		System.out.println(list.size());
+		/*System.out.println(list.size());*/
 
 		if (list.size() > 0)
 			request.setAttribute("list", list);
@@ -43,6 +44,7 @@ public class RContent implements CommandProcess {
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("gathering", gathering);
 		request.setAttribute("thegrno", grno);
+		request.setAttribute("nickname", nickname);
 /*		request.setAttribute("result", result);
 */
 		return "../gathering/rcontent";

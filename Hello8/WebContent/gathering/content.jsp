@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="content.css">
 <script type="text/javascript">
 	function DelChk() {
@@ -15,64 +14,11 @@
 			frm.submit();
 		}
 	}
-
-	/* var httpRequest = null;
-
-	// httpRequest 객체 생성
-	function getXMLHttpRequest() {
-		var httpRequest = null;
-
-		if (window.ActiveXObject) {
-			try {
-				httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch (e) {
-				try {
-					httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-				} catch (e2) {
-					httpRequest = null;
-				}
-			}
-		} else if (window.XMLHttpRequest) {
-			httpRequest = new window.XMLHttpRequest();
-		}
-		return httpRequest;
-	}
-
-	// 댓글 등록
-	function writeCmt() {
-		var form = document.getElementById("writeForm_reply");
-
-		var gno = form.gno.value
-		var id = form.sessionId.value
-		var grcontent = form.grcontent.value;
-
-		if (!content) {
-			alert("내용을 입력하세요.");
-			return false;
-		} else {
-			var param = "gno=" + gno + "&id=" + id + "&grcontent=" + grcontent;
-
-			httpRequest = getXMLHttpRequest();
-			httpRequest.onreadystatechange = checkFunc;
-			httpRequest.open("POST", "rwrite.do", true);
-			httpRequest.setRequestHeader('Content-Type',
-					'application/x-www-form-urlencoded;charset=EUC-KR');
-			httpRequest.send(param);
-		}
-	}
-
-	function checkFunc() {
-		if (httpRequest.readyState == 4) {
-			// 결과값을 가져온다.
-			var resultText = httpRequest.responseText;
-			if (resultText == 1) {
-				document.location.reload(); // 상세보기 창 새로고침
-			}
-		}
-	} */
 </script>
 </head>
 <body>
+	<a href="lala.jsp"><h1 align="center">Gathering</h1></a>
+	
 	<form onsubmit="return DelChk()" name="frm">
 
 		<input type="hidden" name="pageNum" value="${pageNum }"> <input
@@ -107,25 +53,24 @@
 				<td colspan="2" class="c"><pre>${gathering.gcontent }</pre></td>
 			</tr>
 
-			<tr>
+			<%-- <tr>
 				<td colspan="2"><input type="button" value="list"
-					onclick="location.href='list.do?pageNum=${pageNum}'"
+					onclick="location.href='list.do?pageNum=${pageNum}&lang_no=${lang_no }'"
 					style="float: left"> <input type="button" value="modify"
 					onclick="location.href='updateForm.do?pageNum=${pageNum}&gno=${gathering.gno }'"
 					style="float: right"> <input type="button" value="delete"
 					onclick="DelChk()" style="float: right"></td>
-			</tr>
+			</tr> --%>
 
 
-			<%-- <c:if test="${result == 1 }">
+			<c:if test="${result == 1 }">
 				<tr>
 					<td colspan="2"><input type="button" value="list"
 						onclick="location.href='list.do?pageNum=${pageNum}'"
 						style="float: left"> <input type="button" value="modify"
 						onclick="location.href='updateForm.do?pageNum=${pageNum}&gno=${gathering.gno }'"
 						style="float: right"> <input type="button" value="delete"
-						onclick="location.href='deleteForm.do?gno=${gathering.gno }'"
-						style="float: right"></td>
+					onclick="DelChk()" style="float: right"></td>
 				</tr>
 			</c:if>
 
@@ -135,7 +80,7 @@
 						onclick="location.href='list.do?pageNum=${pageNum}'"
 						style="float: left"></td>
 				</tr>
-			</c:if> --%>
+			</c:if>
 
 			<%-- <tr>
 				<td colspan="2"><input type="button" value="list"
@@ -157,18 +102,16 @@
 
 	<div id="comment" align="center">
 		<table>
-
-			<%-- 	<c:if test="${session.setgetAtteribute('id') != null}"> --%>
-
+			
+			<c:if test="${not empty id }">
 			<tr>
 
-				<form name="writeForm_reply" action="rwrite.do" method="post">
-					<input type="hidden" value="hello" name="sessionId"> <input
+				<form name="writeForm_reply" action="rwrite.do">
+					<input type="hidden" value="${id }" name="sessionId"> <input
 						type="hidden" name="gno" value="${gathering.gno }">
 					<td>
 						<div>
-							hello
-							<!-- ${session.setgetAttribute('id')}  -->
+							${nickname }
 						</div>
 					</td>
 
@@ -187,22 +130,27 @@
 				</form>
 
 			</tr>
+			</c:if>
 
-			<%-- </c:if> --%>
 			<c:if test="${not empty list}">
 				<c:forEach var="gathering_reply" items="${list }">
 
 					<tr>
 						<td>${gathering_reply.nickname }(${gathering_reply.grdate })</td>
-						<td align="right"><%-- <input type="button" value="reply"
+						<td align="right">
+							
+							<c:if test="${id == gathering_reply.id }">
+							
+							<%-- <input type="button" value="reply"
 							onclick="location.href='rwriteForm.do?pageNum=${pageNum}&gno=${gathering.gno }&grno=${gathering_reply.grno }'"> --%>
-							<%-- <c:if
-								test="${session.setgetAtteribute('id').equals(gathering_reply.id) }"> --%>
+							
 							<input type="button" value="modify"
-							onclick="location.href='rcontent.do?pageNum=${pageNum}&gno=${gathering.gno }&grno=${gathering_reply.grno }'">
+							onclick="location.href='rcontent.do?pageNum=${pageNum}&gno=${gathering.gno }&grno=${gathering_reply.grno }&nickname=${nickname }'">
 							<input type="button" value="delete"
 							onclick="location.href='rdelete.do?pageNum=${pageNum}&gno=${gathering.gno }&grno=${gathering_reply.grno }'">
-							<%--</c:if> --%></td>
+							
+							</c:if>
+						</td>
 					</tr>
 
 					<tr>

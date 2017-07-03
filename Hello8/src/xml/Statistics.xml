@@ -6,10 +6,19 @@
 <mapper namespace="statisticsns">
 	<resultMap id="statisticsResult" type="statistics">
 		<result property="lang_name" column="lang_name" />
-		<result property="count" column="count(*)" />
+		<result property="count" column="count" />
 	</resultMap>
+	
 	<select id="statistics" resultMap="statisticsResult">
-	select lang_name,count(*) from diary d, language l where d.lang_no=l.lang_no group by 
-	lang_name
+		<!-- select lang_name, count(*) as count 
+		from diary d, language l 
+		where d.lang_no=l.lang_no
+		group by lang_name
+		order by count(d.lang_no) desc -->
+		select lang_name, count(d.lang_no) as count 
+		from diary d, language l 
+		where d.lang_no(+)=l.lang_no 
+		group by lang_name 
+		order by count(d.lang_no) desc
 	</select> 
 </mapper>

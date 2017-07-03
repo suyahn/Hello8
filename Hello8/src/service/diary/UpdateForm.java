@@ -27,10 +27,15 @@ public class UpdateForm implements CommandProcess {
 		DiaryDao dd = DiaryDao.getInstance();
 		Diary diary = dd.select(dno);
 		List<Range> everyRange = dd.everyRange();
+
+		int rno = Integer.parseInt(request.getParameter("rno"));
+
 		request.setAttribute("dno", dno);
 		request.setAttribute("diary", diary);
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("everyRange", everyRange);
+		request.setAttribute("rno", rno);
+
 		return "../diary/updateForm";
 	}
 

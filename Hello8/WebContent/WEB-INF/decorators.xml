@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/temp">
+	<excludes>
+		<pattern>/member/check.jsp</pattern>
+		<pattern>/intro.jsp</pattern>
+		<pattern>/errorPage.jsp</pattern>
+	</excludes>
+	
+	<decorator name="main" page="decorator.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+</decorators>

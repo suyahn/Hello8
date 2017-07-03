@@ -17,7 +17,7 @@ public class UserList implements CommandProcess {
 		List<Faq> list = fd.list();
 		
 		request.setAttribute("list",list);
-		return "../faq/userlist";
+		return "../index.jsp?pgm=faq/userlist";
 	}
 
 }

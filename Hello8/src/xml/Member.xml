@@ -25,11 +25,11 @@
 	</select>
 	
 	<select id="checkNickname" parameterType="string" resultType="string">
-		select nickname from member where nickname=#{nickname}
+		select nickname from member where nickname=#{nickname} and del != 'y'
 	</select>
 	
 	<select id="checkEmail" parameterType="string" resultType="string">
-		select email from member where email=#{email}
+		select email from member where email=#{email} and del != 'y'
 	</select>
 	
 	<select id="select" parameterType="string" resultType="member">
@@ -77,5 +77,15 @@
 	
 	<update id="delete" parameterType="string">
 		update member set del='y' where id=#{id}
+	</update>
+	
+	<!-- diary 썼을 떄 score 올리기 -->
+	<update id="updateScore10" parameterType="string">
+		update member set score=score+10 where id=#{id}
+	</update>
+	
+	<!-- 댓글 썼을 떄 score 올리기 -->
+	<update id="updateScore1" parameterType="string">
+		update member set score=score+1 where id=#{id}
 	</update>
 </mapper>

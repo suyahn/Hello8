@@ -26,11 +26,11 @@
 	</select>
 	
 	<!-- 모국어랑 흥미있는 언어 -->
-	<select id="langlist" parameterType="string">
+	<select id="langlist" parameterType="string" resultMap="languageResult">
 		select m.lang_no, lang_name from member m, language l where
 		m.lang_no = l.lang_no and m.id = #{id}
 		union select i.lang_no, lang_name from inter_lang i,
-		language l where i.id = #{id} and i.lang_no = l.lang_no;
+		language l where i.id = #{id} and i.lang_no = l.lang_no
 	</select>
 	
 	<select id="selectLang" parameterType="int" resultType="string">

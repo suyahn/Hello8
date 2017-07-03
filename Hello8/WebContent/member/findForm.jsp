@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${ pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Optional theme -->
@@ -21,7 +22,7 @@
      <div id="myTabContent" class="tab-content">
        <div role="tabpanel" class="tab-pane fade active in" id="id" aria-labelledby="id-tab">
        	<br><br>
-        <form action="findId.do" method="post">
+        <form action="${ path }/member/findId.do" method="post">
 			<table>
 				<tr>
 					<td>
@@ -40,7 +41,7 @@
        </div>
        <div role="tabpanel" class="tab-pane fade" id="password" aria-labelledby="password-tab">
       	<br><br>
-         <form action="findPassword.do" method="post">
+         <form action="${ path }/member/findPassword.do" method="post">
 			<table>
 				<tr>
 					<td>

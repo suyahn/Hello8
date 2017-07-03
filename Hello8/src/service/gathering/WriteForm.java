@@ -17,7 +17,7 @@ public class WriteForm implements CommandProcess {
 		String id = (String) session.getAttribute("id");
 
 		GatheringDao gd = GatheringDao.getInstance();
-		List<Language> langlist = gd.langlist("hello");
+		List<Language> langlist = gd.langlist(id);
 
 		request.setAttribute("langlist", langlist);
 

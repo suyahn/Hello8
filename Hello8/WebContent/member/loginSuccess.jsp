@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${ pageContext.request.contextPath }"/>
 <%@ include file="sessionCheck.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <c:if test="${ empty nickname }">
-	<jsp:forward page="loginSuccess.do"></jsp:forward>
+	<jsp:forward page="${ path }/member/login.do"></jsp:forward>
 </c:if>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,7 +22,7 @@
 </head>
 <body>
 	<div align="center">
-		<form action="logout.do" method="post">
+		<form action="${ path }/member/logout.do" method="post" id="welcome">
 			<table>
 				<tr>
 					<td><br><h4>Welcome <font color="#17B8F0">${ nickname }</font> !!</h4></td>

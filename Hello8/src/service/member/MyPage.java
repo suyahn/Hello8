@@ -26,7 +26,6 @@ public class MyPage implements CommandProcess {
 		
 		MemberDao md = MemberDao.getInstance();
 		Member member = md.select(id);
-		System.out.println("lno : " + member.getLang_no());
 		
 		DiaryDao dd = DiaryDao.getInstance();
 		int diarySum = dd.getTotalById(id);

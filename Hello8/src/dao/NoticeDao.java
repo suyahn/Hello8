@@ -79,4 +79,8 @@ public class NoticeDao {
 		return (Notice) session.selectOne("noticens.select", num);
 		// void가 없으면 ex)return(notice) 형변환을 해줘야 하지만 있으면 안해줘도 됨
 	}
+
+	public List<Notice> main() {
+		return session.selectList("noticens.main");
+	}
 }

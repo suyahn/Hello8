@@ -19,17 +19,15 @@ public class Update implements CommandProcess {
 		DiaryDao dd = DiaryDao.getInstance();
 		int dno = dd.insertNo();
 		String dsubject = request.getParameter("dsubject");
-		String id = "hello";
 		String dcontent = request.getParameter("dcontent");
 		int rno = Integer.parseInt(request.getParameter("rno"));
-
+		
 		Diary diary = new Diary();
 		diary.setDno(dno);
 		diary.setDsubject(dsubject);
-		diary.setId(id);
-		diary.setDcontent(dcontent);
 		diary.setRno(rno);
-
+		diary.setDcontent(dcontent);
+		
 		int result = dd.update(diary);
 		request.setAttribute("result", result);
 

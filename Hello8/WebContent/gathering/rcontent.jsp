@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="dao.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="content.css">
 <script type="text/javascript">
 	function DelChk() {
@@ -56,10 +55,10 @@
 			<tr>
 				<td colspan="2"><input type="button" value="list"
 					onclick="location.href='list.do?pageNum=${pageNum}'"
-					style="float: left"> <input type="button" value="modify"
+					style="float: left"> <!--<input type="button" value="modify"
 					onclick="location.href='updateForm.do?pageNum=${pageNum}&gno=${gathering.gno }'"
 					style="float: right"> <input type="button" value="delete"
-					onclick="DelChk()" style="float: right"></td>
+					onclick="DelChk()" style="float: right">--></td>
 			</tr>
 
 
@@ -113,20 +112,19 @@
 						type="hidden" name="gno" value="${gathering.gno }">
 					<td>
 						<div>
-							hello
-							<!-- ${session.setgetAttribute('id')}  -->
+							${nickname }
 						</div>
 					</td>
 
 					<td>
 						<div>
-							<textarea name="grcontent" rows="4" cols="70"> </textarea>
+							<textarea name="grcontent" rows="4" cols="70" disabled="disabled"> </textarea>
 						</div>
 					</td>
 
-					<td>
+					<td> 
 						<div>
-							<input type="submit" value="confirm">
+							<input type="submit" value="confirm" disabled="disabled">
 						</div>
 					</td>
 
@@ -151,10 +149,10 @@
 						<c:if test="${thegrno == gathering_reply.grno }">
 							<tr>
 								<td colspan="2"><textarea name="grcontent" rows="4"
-										cols="70">${gathering_reply.grcontent }</textarea>
+										cols="70" maxlength="166">${gathering_reply.grcontent }</textarea>
 									<div>
 										<input type="submit" value="confirm"> <input
-											type="button" value="cancle" onclick="history.go(-1)">
+											type="button" value="cancel" onclick="history.go(-1)">
 									</div></td>
 							</tr>
 						</c:if>

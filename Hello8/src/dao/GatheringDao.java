@@ -63,7 +63,6 @@ public class GatheringDao {
 	// 내용 수정
 	public int contentUpdate(Gathering gathering) {
 		int result = session.update("gatheringns.contentUpdate", gathering);
-		System.out.println(result);
 		return result;
 	}
 
@@ -112,7 +111,7 @@ public class GatheringDao {
 	public int getTotal2(int lang_no) {
 		return (int) session.selectOne("gatheringns.getTotal2", lang_no);
 	}
-	
+
 	public String getLangName(int lang_no) {
 		return (String) session.selectOne("gatheringns.getLangName", lang_no);
 	}
@@ -121,13 +120,21 @@ public class GatheringDao {
 		HashMap<String, Integer> hm = new HashMap<>();
 		hm.put("year", year);
 		hm.put("month", month);
-		
+
 		return session.selectList("gatheringns.allList", hm);
 	}
-	
+
 	public int getTotalById(String id) {
 		// TODO Auto-generated method stub
 		return (int) session.selectOne("gatheringns.getTotalById", id);
 	}
 
+	public String checkNickname(String id) {
+		return (String) session.selectOne("gatheringns.checkNickname", id);
+	}
+
+	// 날짜가 지난 리스트까지 다 받아서 달력에 뿌려주자!
+	public List<Gathering> selectGathering() {
+		return session.selectList("gatheringns.selectGathering");
+	}
 }

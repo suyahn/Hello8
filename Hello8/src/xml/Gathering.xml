@@ -33,13 +33,6 @@
 		#{startRow} and #{endRow}
 	</select>
 
-	<insert id="insert" parameterType="gathering">
-		insert into gathering values
-		(#{gno}, #{gsubject}, #{id}, #{gcontent},
-		sysdate, 0, 'n', #{lang_no},
-		#{ggdate})
-	</insert>
-
 	<select id="insertNo" resultType="int">
 		select max(nvl(gno, 0)) + 1
 		from gathering
@@ -59,39 +52,9 @@
 		l.lang_no
 	</select>
 
-	<update id="greadCountUpdate" parameterType="int">
-		update gathering set
-		greadcount = greadcount + 1
-		where gno = #{gno}
-	</update>
-
 	<select id="checkId" parameterType="int" resultType="string">
 		select id
 		from gathering where gno = #{gno}
-	</select>
-
-	<update id="contentUpdate" parameterType="gathering">
-		update gathering set
-		gsubject = #{gsubject}, gcontent = #{gcontent}
-		where gno = #{gno}
-	</update>
-
-	<update id="contentDelete" parameterType="int">
-		update gathering set
-		gdel = 'y' where gno = #{gno}
-	</update>
-
-	<update id="contentDeleteReply" parameterType="int">
-		update
-		gathering_reply set
-		grdel = 'y' where gno = #{gno}
-	</update>
-
-	<select id="getTotal2" parameterType="int" resultType="int">
-		select
-		count(*) from
-		gathering where gdel != 'y' and lang_no = #{lang_no} and
-		ggdate > sysdate
 	</select>
 
 	<select id="list2" parameterType="hashMap" resultMap="gatheringResult">
@@ -111,10 +74,60 @@
 		select
 		lang_name from language where lang_no = #{lang_no}
 	</select>
-	
-	<select id="getTotalById" parameterType="string" resultType="int">
-		select count(*) from gathering where id=#{id} and gdel='n'
+
+	<select id="getTotal2" parameterType="int" resultType="int">
+		select
+		count(*) from
+		gathering where gdel != 'y' and lang_no = #{lang_no} and ggdate > sysdate
 	</select>
+		
+	<select id="checkNickname" parameterType="string" resultType="string">
+		select nickname from member where id = #{id}
+	</select>
+
+	<select id="getTotalById" parameterType="string" resultType="int">
+		select count(*) from gathering where id = #{id}
+	</select>
+	
+	<select id="selectGathering" resultMap="gatheringResult">
+		select *
+		from (select rownum rn, g2.* from (select g1.*, m.nickname,
+		l.lang_name
+		from gathering g1, member m, language l where g1.id = m.id
+		and
+		g1.lang_no = l.lang_no and gdel != 'y' order by ggdate) g2)
+	</select>
+	
+	<insert id="insert" parameterType="gathering">
+		insert into gathering values
+		(#{gno}, #{gsubject}, #{id}, #{gcontent},
+		sysdate, 0, 'n', #{lang_no},
+		#{ggdate})
+	</insert>
+
+	<update id="greadCountUpdate" parameterType="int">
+		update gathering set
+		greadcount = greadcount + 1
+		where gno = #{gno}
+	</update>
+
+	<update id="contentUpdate" parameterType="gathering">
+		update gathering set
+		gsubject = #{gsubject}, gcontent = #{gcontent}
+		where gno = #{gno}
+	</update>
+
+	<update id="contentDelete" parameterType="int">
+		update gathering set
+		gdel = 'y' where gno = #{gno}
+	</update>
+
+	<update id="contentDeleteReply" parameterType="int">
+		update
+		gathering_reply set
+		grdel = 'y' where gno = #{gno}
+	</update>
+	
 	<!-- <update id="deletePGathering"> update gathering set gdel = 'y' where 
 		ggdate < sysdate </update> -->
 </mapper>

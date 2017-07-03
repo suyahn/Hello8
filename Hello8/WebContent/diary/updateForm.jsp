@@ -5,12 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
 </head>
 <body>
 	<form action="update.do" method="post">
 		<input type="hidden" name="dno" value="${diary.dno }"> <input
-			type="hidden" name="pageNum" value="${pageNum }">
+			type="hidden" name="pageNum" value="${pageNum }"> 
 		<table align="center">
 			<caption>
 				<h2>Revising a diary</h2>
@@ -34,16 +34,24 @@
 						</pre></td>
 
 			</tr>
+
 			<tr>
 				<th align="center">Privacy bounds</th>
 				<td><select name="rno" size="1" required="required">
 						<c:forEach var="range" items="${everyRange}">
-							<option value="${range.rno}">${range.rname}</option>
+							<c:if test="${range.rno == rno }">
+								<option value="${range.rno }" selected="selected">${range.rname }</option>
+							</c:if>
+							<c:if test="${range.rno != rno }">
+								<option value="${range.rno }">${range.rname }</option>
+							</c:if>
 						</c:forEach>
-				</select></td>
+				</select>
+				</td>
 				<th colspan="2" align="right"><input type="submit"
 					value="confirm"></th>
 			</tr>
+
 		</table>
 	</form>
 </body>

@@ -10,6 +10,17 @@ public class Diary_Reply {
 	private Date drdate;
 	private int ref;
 	private int re_step;
+	private int re_level;
+	private String nickname;
+	private String drdel;
+
+	public String getDrdel() {
+		return drdel;
+	}
+
+	public void setDrdel(String drdel) {
+		this.drdel = drdel;
+	}
 
 	public int getDrno() {
 		return drno;
@@ -75,6 +86,12 @@ public class Diary_Reply {
 		this.re_level = re_level;
 	}
 
-	private int re_level;
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
 }

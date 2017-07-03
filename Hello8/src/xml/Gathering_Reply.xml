@@ -29,6 +29,16 @@
 		grdate desc) g2, member m where m.id = g2.id)
 	</select>
 
+	<select id="insertNo" resultType="int">
+		select max(nvl(grno, 0)) + 1
+		from gathering_reply
+	</select>
+
+	<select id="select" parameterType="int" resultType="gathering_reply">
+		select * from
+		gathering_reply where grno = #{grno}
+	</select>
+
 	<!-- <select id="list" parameterType="hashMap" resultMap="gathering_replyResult"> 
 		select * from (select rownum rn, g2.* from (select g1.*, m.nickname from 
 		gathering_reply g1, member m where g1.id = m.id and g1.grdel != 'y' order 
@@ -41,11 +51,6 @@
 		sysdate, #{ref},
 		#{re_step}, #{re_level}, 'n')
 	</insert>
-
-	<select id="insertNo" resultType="int">
-		select max(nvl(grno, 0)) + 1
-		from gathering_reply
-	</select>
 
 	<update id="UpdateReply" parameterType="gathering_reply">
 		update gathering_reply
@@ -60,11 +65,6 @@
 		grdel = 'y'
 		where grno = #{grno}
 	</update>
-
-	<select id="select" parameterType="int" resultType="gathering_reply">
-		select * from
-		gathering_reply where grno = #{grno}
-	</select>
 
 	<!-- <select id="sqlStep" parameterType="gathering_reply" resultType="int">
 		select min(re_step) from gathering_reply where ref = #{ref} and

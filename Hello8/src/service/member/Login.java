@@ -27,20 +27,20 @@ public class Login implements CommandProcess {
 		if(result > 0) {
 			session.setAttribute("id", id);
 			
-			String nickname = md.getNickName(id);
+			/*String nickname = md.getNickName(id);
 			int score = md.getScore(id);
 			String grade = md.getGrade(id);
 			
 			request.setAttribute("nickname", nickname);
 			request.setAttribute("score", score);
-			request.setAttribute("grade", grade);
 			
-//			return "../member/loginSuccess";
+			request.setAttribute("grade", grade);
+			request.setAttribute("id", id); */
+			
+			return "../index";
 		} else {
 			request.setAttribute("result", result);
-//			return "../member/loginForm";
+			return "../member/loginForm";
 		}
-		return "../index";
 	}
-
 }

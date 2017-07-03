@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <c:if test="${ empty param.mode }">
 	<jsp:forward page="myPage.do"></jsp:forward>
 </c:if>
@@ -24,7 +23,7 @@
 					<th><h4>Please write your password.</h4></th>
 				</tr>
 				<tr>
-					<td><br><input type="password" name="password" required="required" autofocus="autofocus" placeholder="Password" class="form-control"></td>
+					<td><br><input type="password" name="password" required="required" autofocus="autofocus" placeholder="Password" class="form-control"  maxlength="10"></td>
 				</tr>
 				<tr>
 					<td align="center">

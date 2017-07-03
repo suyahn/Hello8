@@ -24,7 +24,7 @@ public class LoginSuccess implements CommandProcess {
 		request.setAttribute("score", score);
 		request.setAttribute("grade", grade);
 		
-		return "../member/loginSuccess";
+		return "/index.jsp";
 	}
 
 }

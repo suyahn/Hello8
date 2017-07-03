@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.DiaryDao;
+import dao.MemberDao;
 import model.Diary;
 import service.CommandProcess;
 
@@ -17,12 +18,10 @@ public class Write implements CommandProcess {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		/*
-		 * HttpSession session = request.getSession(); String id = (String)
-		 * session.getAttribute("id");
-		 */
-		String id = "hello";
-		/*String nickname = request.getParameter("nickname");*/
+		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("id");
+		
 		String dsubject = request.getParameter("dsubject");
 		String dcontent = request.getParameter("dcontent");
 		int rno = Integer.parseInt(request.getParameter("rno"));
@@ -34,8 +33,6 @@ public class Write implements CommandProcess {
 
 		Diary diary = new Diary();
 		diary.setDno(dno);
-		/*diary.setNickname(nickname);
-		System.out.println("nickname :" + nickname);*/
 		diary.setDsubject(dsubject);
 		diary.setId(id);
 		diary.setDcontent(dcontent);
@@ -43,6 +40,9 @@ public class Write implements CommandProcess {
 		diary.setRno(rno);// 공개범위
 
 		int result = dd.insert(diary);
+		
+		MemberDao md = MemberDao.getInstance();
+		md.updateScore(id, 10);
 
 		request.setAttribute("result", result);
 

@@ -115,24 +115,58 @@ public class ListAction implements CommandProcess {
 		int currentPage = Integer.parseInt(pageNum);
 
 		GatheringDao gd = GatheringDao.getInstance();
-		
-		int total = gd.getTotal();
-		int startRow = (currentPage - 1) * ROWPERPAGE + 1;
-		int endRow = startRow + ROWPERPAGE - 1;
 
-		int totalPage = (int) Math.ceil((double) total / ROWPERPAGE);
-		// int startPage = currentPage / 10 * PAGEPERBLOCK + 1;
-		int startPage = currentPage - (currentPage - 1) % PAGEPERBLOCK;
-		int endPage = startPage + PAGEPERBLOCK - 1;
-		if (endPage > totalPage)
-			endPage = totalPage;
+		int total = 0, startRow = 0, endRow = 0, totalPage = 0;
+		int startPage = 0, endPage = 0, number = 0, num = 0;
+		List<Gathering> list;
 
-		int number = total - startRow + 1;
+		int lang_no = 0;
+		String lang_name = null;
 
-		List<Gathering> list = gd.list(startRow, endRow);
+		String test = request.getParameter("lang_no");
 
-		// 이상한 페이징을 바로잡아주기 위한.
-		int num = (int) Math.ceil((double) currentPage / PAGEPERBLOCK);
+		if (test == null || test.equals("") || test.equals("0")) {
+
+			total = gd.getTotal();
+			startRow = (currentPage - 1) * ROWPERPAGE + 1;
+			endRow = startRow + ROWPERPAGE - 1;
+
+			totalPage = (int) Math.ceil((double) total / ROWPERPAGE);
+			//startPage = currentPage / 10 * PAGEPERBLOCK + 1;
+			startPage = currentPage - (currentPage - 1) % PAGEPERBLOCK;
+			endPage = startPage + PAGEPERBLOCK - 1;
+			if (endPage > totalPage)
+				endPage = totalPage;
+
+			number = total - startRow + 1;
+
+			list = gd.list(startRow, endRow);
+
+			// 이상한 페이징을 바로잡아주기 위한.
+			num = (int) Math.ceil((double) currentPage / PAGEPERBLOCK);
+
+		} else {
+			lang_no = Integer.parseInt(request.getParameter("lang_no"));
+			lang_name = gd.getLangName(lang_no);
+
+			total = gd.getTotal2(lang_no);
+			startRow = (currentPage - 1) * ROWPERPAGE + 1;
+			endRow = startRow + ROWPERPAGE - 1;
+
+			totalPage = (int) Math.ceil((double) total / ROWPERPAGE);
+			//startPage = currentPage / 10 * PAGEPERBLOCK + 1;
+			startPage = currentPage - (currentPage - 1) % PAGEPERBLOCK;
+			endPage = startPage + PAGEPERBLOCK - 1;
+			if (endPage > totalPage)
+				endPage = totalPage;
+
+			number = total - startRow + 1;
+
+			list = gd.list2(startRow, endRow, lang_no);
+
+			// 이상한 페이징을 바로잡아주기 위한.
+			num = (int) Math.ceil((double) currentPage / PAGEPERBLOCK);
+		}
 
 		// 언어 받아오기
 		List<Language> list_lang = gd.everyLang();
@@ -140,13 +174,17 @@ public class ListAction implements CommandProcess {
 
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("currentPage", currentPage);
-		request.setAttribute("total", total);
+		request.setAttribute("ROWPERPAGE", ROWPERPAGE);
+		request.setAttribute("PAGEPERBLOCK", PAGEPERBLOCK);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("number", number);
 		request.setAttribute("list", list);
 		request.setAttribute("totalPage", totalPage);
-		request.setAttribute("num", num);
+		request.setAttribute("numBlock", num);
+
+		request.setAttribute("lang_name", lang_name);
+		request.setAttribute("lang_no", lang_no);
 
 		return "../gathering/list";
 	}

@@ -5,41 +5,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+</style>
 <link rel="stylesheet" type="text/css" href="">
 </head>
 <body>
-	<form>
-		<fieldset style="width: 500px">
-			<legend align="left">Language</legend>
+	<a href="lala.jsp"><h1 align="center">Gathering</h1></a>
 
-			<a href="list.do">All</a>
+	<form action="list.do">
+		<div align="center" style="width: 910px">
+			<div align="right">
+				<select name="lang_no">
+					<option value="0">All</option>
 
-			<c:forEach var="lang" items="${list_lang }">
-				<a href="lang_list.do?lang_no=${lang.lang_no }">${lang.lang_name }</a>
-			</c:forEach>
-			
-		</fieldset>
+					<c:forEach var="lang" items="${list_lang }">
+						<c:if test="${lang.lang_no == lang_no }">
+							<option value="${lang.lang_no }" selected="selected">${lang.lang_name }</option>
+						</c:if>
 
-		<%-- <fieldset>
-			<legend>Language</legend>
-
-			<label>All</label> <input type="checkbox" name="lang" value="0">
-
-			<c:forEach var="lang" items="${list_lang }">
-				<label>${lang.lang_name }</label>
-				<input type="checkbox" name="lang"
-					value="${lang.lang_no }">
-			</c:forEach>
-
-			<p>
-				<input type="button" value="search" onclick="list.do">
-			</p>
-		</fieldset> --%>
-
+						<c:if test="${lang.lang_no != lang_no }">
+							<option value="${lang.lang_no }">${lang.lang_name }</option>
+						</c:if>
+					</c:forEach>
+				</select> <input type="submit" value="confirm">
+			</div>
+		</div>
 	</form>
-
-	<h1 align="center">Gathering</h1>
 
 	<c:set value="${number }" var="num" />
 
@@ -62,9 +52,18 @@
 						<!-- 여기 컬럼 확인 후 수정 -->
 						<td>[${gathering.lang_name }]</td>
 
-						<td><a
-							href="content.do?gno=${gathering.gno }&pageNum=${pageNum}">
-								${gathering.gsubject } </a></td>
+						<c:if test="${not empty lang_no }">
+							<td><a
+								href="content.do?gno=${gathering.gno }&pageNum=${pageNum}&lang_no=${lang_no}">
+									${gathering.gsubject } </a></td>
+						</c:if>
+
+						<c:if test="${empty lang_no }">
+							<td><a
+								href="content.do?gno=${gathering.gno }&pageNum=${pageNum}">
+									${gathering.gsubject } </a></td>
+						</c:if>
+
 						<td>${gathering.nickname }</td>
 						<td>${gathering.ggdate }</td>
 						<td align="center">${gathering.greadcount }</td>
@@ -84,14 +83,22 @@
 		</c:if>
 
 		<tr>
-			<th colspan="7"><input type="button"
-				onclick="location.href='writeForm.jsp'" value="write"
-				style="float: left">
+			<th colspan="7">
+			
+			<% 
+				String id = (String) session.getAttribute("id");
+				if(id != null) {
+			%>
+			<input type="button" onclick="location.href='writeForm.do'" 
+				value="write" style="float: left">
+			<%
+				}
+			%>
 
-				<div align="center">
+			<%-- 	<div align="center">
 					<c:if test="${startParge > PAGEPERBLOCK }">
 						<c:if test="${endPage == totalPage }">
-							<a href="list.do?pageNum=${(num * PAGEPERBLOCK) -10 }"> <<
+							<a href="list.do?pageNum=${(num - 2) * PAGEPERBLOCK + 10}"> <<
 								prev </a>
 						</c:if>
 
@@ -113,7 +120,25 @@
 						</a>
 
 					</c:if>
-				</div></th>
+				</div> --%>
+				<div align="center">
+					<c:if test="${startPage > PAGEPERBLOCK }">
+						<c:if test="${ endPage == totalPage }">
+							<a
+								href="list.do?pageNum=${ (numBlock - 2) * PAGEPERBLOCK + 10 }"><< prev</a>
+						</c:if>
+						<c:if test="${ endPage != totalPage }">
+							<a href="list.do?pageNum=${ endPage - PAGEPERBLOCK }"><< prev</a>
+						</c:if>
+					</c:if>
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<a href="list.do?pageNum=${i}">[${i}]</a>
+					</c:forEach>
+					<c:if test="${endPage < totalPage }">
+						<a href="list.do?pageNum=${startPage+PAGEPERBLOCK}">next >></a>
+					</c:if>
+				</div>
+			</th>
 		</tr>
 	</table>
 

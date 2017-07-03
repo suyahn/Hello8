@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<form action="write.do" method="post">
@@ -16,12 +15,12 @@
 			<tr>
 				<th>Subject</th>
 				<td colspan="3"><input type="text" name="dsubject"
-					required="required" size="35"></td>
+					required="required" size="35" maxlength="33"></td>
 			</tr>
 			<tr>
 				<th>Writer</th>
 				<td>
-					<%-- ${diary.nickname} --%>규랑이
+					${nickname}
 				</td>
 				<th>Language</th>
 				<td><select name=lang_no size="1" required="required">
@@ -32,9 +31,9 @@
 
 			</tr>
 			<tr>
-				<td colspan="4" width="400px"><pre>
-						<textarea rows="10" cols="60" name="dcontent" required="required"></textarea>
-					</pre></td>
+				<td colspan="4" width="400px">
+						<textarea rows="10" cols="60" maxlength="166" name="dcontent" required="required"></textarea>
+					</td>
 			</tr>
 			<tr>
 				<th>Privacy bounds</th>
@@ -45,7 +44,7 @@
 				</select></td>
 
 				<th colspan="2" align="right"><input type="submit"
-					value="confirm"></th>
+					value="confirm" style="float: right"></th>
 			</tr>
 		</table>
 	</form>

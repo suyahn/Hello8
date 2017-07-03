@@ -6,28 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <script type="text/javascript">
-	function nicknameChk() {
-		if(!frm.nickname.value) {
-			alert("Please write Nickname.");
-			frm.nickname.focus();
-			return false;
-		}
-		window.open("checkNickname.do?nickname=" + frm.nickname.value, "Check Duplicate Nickname", "width=300 height=300");
-	}
-	function emailChk() {
-		if(!frm.email.value) {
-			alert("Please write Email.");
-			frm.email.focus();
-			return false;
-		}
-		window.open("checkEmail.do?email=" + frm.email.value, "Check Duplicate Email", "width=300 height=300");
-	}
 	function chk() {
 		if(frm.password.value != frm.password2.value) {
 			alert("Please check password.");
@@ -73,27 +56,25 @@
 				<tr><td>
 					<div class="form-group">
 						<label for="password">Password</label>
-						<input type="password" class="form-control" id="password" placeholder="Password" required="required" name="password">
+						<input type="password" class="form-control" id="password" placeholder="Password" required="required" name="password"  maxlength="10">
 					</div>
 				</td></tr>
 				<tr><td>
 					<div class="form-group">
 						<label for="password2">Password Check</label>
-						<input type="password" class="form-control" id="password2" placeholder="Password Check" required="required" name="password2">
+						<input type="password" class="form-control" id="password2" placeholder="Password Check" required="required" name="password2"  maxlength="10">
 					</div>
 				</td></tr>
 				<tr><td>
 					<div class="form-group">
 						<label for="nickname">Nickname</label>
-						<input type="text" class="form-control" id="nickname" placeholder="Nickname" required="required" name="nickname" value="${ member.nickname }">
-						<button type="button" class="btn btn-default" onclick="return nicknameChk()">Nickname Check</button>
+						<input type="text" class="form-control" id="nickname" placeholder="Nickname"  readonly="readonly" name="nickname" value="${ member.nickname }">
 					</div>
 				</td></tr>
 				<tr><td>
 					<div class="form-group">
 						<label for="email">Email</label>
-						<input type="email" class="form-control" id="email" placeholder="Email" required="required" name="email" value="${ member.email }">
-						<button type="button" class="btn btn-default" onclick="return emailChk()">Email Check</button>
+						<input type="email" class="form-control" id="email" placeholder="Email"  readonly="readonly" name="email" value="${ member.email }">
 					</div>
 				</td></tr>
 				<tr><td>

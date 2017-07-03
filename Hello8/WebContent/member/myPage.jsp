@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <c:if test="${ empty member }">
 	<jsp:forward page="myPage.do"></jsp:forward>
 </c:if>
@@ -21,7 +20,8 @@
 </style>
 </head>
 <body>
-	<div class="panel panel-info" align="center">
+	<div align="center">
+	<div class="panel panel-info" style="width:80%;">
 		<div class="panel-heading">
 			<h2 class="panel-title">${ member.nickname }'s Summary</h2>
 		</div>
@@ -35,7 +35,7 @@
 		</div>
 	</div>
 
-	<div class="panel panel-info" align="center">
+	<div class="panel panel-info" style="width:80%;">
 		<div class="panel-heading">
 			<h2 class="panel-title">${ member.nickname }'s Information</h2>
 		</div>
@@ -85,6 +85,7 @@
 				</tr>
 			</table>
 		</div>
+	</div>
 	</div>
 </body>
 <!-- Latest compiled and minified JavaScript -->

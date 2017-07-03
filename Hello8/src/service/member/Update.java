@@ -20,7 +20,6 @@ public class Update implements CommandProcess {
 		String nickname = request.getParameter("nickname");
 		String email = request.getParameter("email");
 		int native_lang = Integer.parseInt(request.getParameter("native_lang"));
-		System.out.println("native_lang= "+native_lang);
 		String[] inter_langs = request.getParameterValues("inter_lang");
 		
 		Member member = new Member();
@@ -35,7 +34,6 @@ public class Update implements CommandProcess {
 		
 		LanguageDao ild = LanguageDao.getInstance();
 		int a= ild.delete(id);
-		System.out.println("a= "+a);
 		if (a > 0)
 			for(String str : inter_langs) {
 				int lang_no = Integer.parseInt(str);
@@ -44,7 +42,6 @@ public class Update implements CommandProcess {
 				inter_langObj.setLang_no(lang_no);
 				
 				int result = ild.insert(inter_langObj);
-				System.out.println("result = " + result);
 			}
 		return "../member/updateResult";
 	}

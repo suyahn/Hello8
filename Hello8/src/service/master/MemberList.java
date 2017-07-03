@@ -11,26 +11,34 @@ public class MemberList implements CommandProcess {
 		final int ROWPERPAGE = 10;
 		final int PAGEPERBLOCK = 10;	
 		String pageNum = request.getParameter("pageNum");
-		if (pageNum == null || pageNum.equals(""))
+		if (pageNum == null || pageNum.equals("")) {
 			pageNum="1";
+		}
 		int currentPage = Integer.parseInt(pageNum);
+		
 		MemberDao md = MemberDao.getInstance();
 		int total = md.getTotal();
+		
 		int startRow = (currentPage - 1) * ROWPERPAGE + 1 ;
 		int endRow = startRow + ROWPERPAGE - 1 ;		
 		List<Member> list = md.list(startRow, endRow);	
+		
 		int totPage = (int)Math.ceil((double)total/ROWPERPAGE);
-		int startPage = currentPage/10 * PAGEPERBLOCK +1;
+		int startPage = currentPage - (currentPage - 1) % PAGEPERBLOCK;
 		int endPage = startPage + PAGEPERBLOCK - 1;
 		if (endPage > totPage) endPage = totPage;
 		
+		int numBlock = (int)Math.ceil((double)currentPage / PAGEPERBLOCK);
+		
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("ROWPERPAGE", ROWPERPAGE);
 		request.setAttribute("PAGEPERBLOCK", PAGEPERBLOCK);
 		request.setAttribute("list", list);
 		request.setAttribute("totPage", totPage);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
+		request.setAttribute("numBlock", numBlock);
 		
 		return "../master/list";
 	}

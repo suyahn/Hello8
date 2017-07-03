@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<c:if test="${ result > 0 }">
@@ -18,7 +17,13 @@
 			</jsp:forward>
 		</c:if>
 		<c:if test="${ mode == 2 }">
-		
+			<script type="text/javascript">
+				if (confirm("Are you sure??") == true){
+			    	location.href="delete.do";
+				}else{
+					location.href = "myPage.do";
+				}
+			</script>
 		</c:if>
 	</c:if>
 	<c:if test="${ result <= 0 }">

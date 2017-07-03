@@ -5,28 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
-	<%
-		int dno = Integer.parseInt(request.getParameter("dno"));
-		DiaryDao dd = DiaryDao.getInstance();
-		int result = dd.delete(dno);
-		if (result > 0) {
-	%>
-	<script type="text/javascript">
-		alert("Success");
-		location.href = "list.do";
-	</script>
-	<%
-		} else {
-	%>
-	<script type="text/javascript">
-		alert("Fail");
-		history.go(-1);
-	</script>
-	<%
-		}
-	%>
+	<c:if test="${result >0 }">
+		<script type="text/javascript">
+			alert("Success");
+			location.href = "list.do";
+		</script>
+	</c:if>
+	
+	<c:if test="${result<=0 }">
+		<script type="text/javascript">
+			alert("fail");
+			location.href = "content.do?num=${num}";
+		</script>
+	</c:if>
 </body>
 </html>
